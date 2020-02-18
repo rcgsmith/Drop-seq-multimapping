@@ -1,4 +1,4 @@
-# Adjustment to Drop-seq bioinformatics pipeline (v1) to allow multimapping alignments in specific circumstances.
+# Extension to Drop-seq bioinformatics pipeline (v1) to allow multimapping alignments in specific circumstances.
 
 This set of scripts provides an extension to the Drop-seq bioinformatics pipeline v1 (http://mccarrolllab.org/dropseq/, https://github.com/broadinstitute/Drop-seq).
 
@@ -12,10 +12,11 @@ Please read the following notes on the intended use and background of this alter
 ## Background
 
 The standard Drop-seq (v1) pipeline uses the alignment output of the Star aligner (aligning reads to the genome). The Star aligner can output several possible alignment outputs for a single read (if they exist) and indicates the number of alignments for the read in the MAPQ column of the sam/bam alignment file. The possible Star MAPQ values are: 
-•	255 -  one mapping location.
-•	3 – two mapping locations.
-•	1 – three or four mapping locations.
-•	0 – five or more mapping locations.
+
+*	255 -  one mapping location.
+*	3 – two mapping locations.
+*	1 – three or four mapping locations.
+*	0 – five or more mapping locations.
 
 The standard drop-seq pipeline (v1) only uses unique alignments (ie. alignments with MAPQ=255). 
 
