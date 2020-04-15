@@ -62,8 +62,10 @@ XF tag determines whether an alignment is Coding or Non-coding:
 
 If any of the XF read tags for a set of alignments is CODING/UTR but without a GE tag, then that set of mappers (dual, triple, quadruple) is not considered (all alignments set to ‘secondary’)
        Indicates alignment to be altered, (if condition is met).
+       
+<img src="/Images/Dual_Mappers_Image.png" width="50">
 
-![Dual_Mappers_Image](/Images/Dual_Mappers_Image.png)
+![Dual_Mappers_Image](/Images/Dual_Mappers_Image.png width="100")
 
 ### Prerequisites
 
