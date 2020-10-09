@@ -63,14 +63,81 @@ XF tag determines whether an alignment is Coding or Non-coding:
 If any of the XF read tags for a set of alignments is CODING/UTR but without a GE tag, then that set of mappers (dual, triple, quadruple) is not considered (all alignments set to ‘secondary’)
        Indicates alignment to be altered, (if condition is met).
        
+Dual mappers:
+
 <img src="/Images/Dual_Mappers_Image.png" width="70%">
 
-<img src="/Images/Triple_Mappers_Image.png" width="85%">
+Triple mappers
+
+<img src="/Images/Triple_Mappers_Image.png" width="80%">
+
+Quadruple mappers
 
 <img src="/Images/Quad_Mappers_Image.png" width="100%">
 
 
+### Implementation
+This set of scripts is designed to be incorporated into the user’s current Drop-seq pipeline (v1) setup. Extended pipeline output includes all standard Drop-seq output as well as equivalent files with inclusion of specific multimapping alignments as outlined above. 
 
-### Prerequisites
+The following description makes use of the same file descriptions and nomenclature as in Drop-seq computational protocol v1.2 (http://mccarrolllab.org/wp-content/uploads/2016/03/Drop-seqAlignmentCookbookv1.2Jan2016.pdf), and the Drop-seq tools v1.13. Both available at https://github.com/broadinstitute/Drop-seq/releases/tag/v1.13.
 
-What things you need to install the software and how to install them
+The comparison of multimapping alignment sets requires the samtools package (http://www.htslib.org/) and bash and awk implementations. It has been tested on systems implementing:
+•	samtools v1.3.2,  
+•	awk version 20070501 (macOS) and gawk (GNU awk 3.1.7) 
+•	GNU bash versions 3.2.57(1)-release (x86_64-apple-darwin17) and 4.1.2(1)-release (x86_64-redhat-linux-gnu).
+
+In User’s own Drop-seq pipeline:
+
+1)	Create mm_out_dir variable for Drop-seq pipeline output path. This mm_out_dir variable is required by the extended pipeline, even if path is already specified by another variable.
+mm_out_dir=own/output/path
+2)	Create temporary directory in own/output/path:
+mkdir $mm_out_dir/temp
+3)	Copy MultimapperScripts folder available here to a pipeline-accessible folder at own/path/to/MultimapperScripts
+4)	Create variable for MultimapperScripts path:
+multifolder=own/path/to/MultimapperScripts
+5)	Make a copy of own implementation of Drop-seq_alignment.sh, rename it as Drop-seq_alignment_incMultimappers.sh and place in own/path/to/MultimapperScripts.
+6)	In Drop-seq_alignment_incMultimappers.sh, change the merge_bam command so that multimapping alignments are included downstream (ie change to INCLUDE_SECONDARY_ALIGNMENTS=true)
+
+# Stage 4: merge and tag aligned reads
+merge_bam="java -Xmx4000m -jar ${picard_jar} MergeBamAlignment REFERENCE_SEQUENCE=${reference} UNMAPPED_BAM=${tagged_unmapped_bam} \
+ALIGNED_BAM=${aligned_sorted_bam} INCLUDE_SECONDARY_ALIGNMENTS=true PAIRED_RUN=true"
+tag_with_gene_exon="${dropseq_root}/TagReadWithGeneExon O=${tmpdir}/star_gene_exon_tagged.bam ANNOTATIONS_FILE=${refflat} TAG=GE"
+
+7)	Where Drop-seq_alignment.sh is invoked, instead invoke $multifolder/Drop-seq_alignment_incMultimappers.sh (with same options as for Drop-seq_alignment.sh).
+8)	Extend standard pipeline with three new sections at the end:
+
+A.	Compare Multimapping Alignment Sets 
+
+alteration_input=$mm_out_dir/clean_star_gene_exon_tagged.bam
+outputfile=$mm_out_dir/multimap_altered_clean_star_gene_exon_tagged.bam
+
+source $multifolder/MultimapperAlteration.sh 
+
+B.	Digital Gene Expression including multimapping alignments meeting inclusion criteria  - use same parameters as for standard pipeline DGE except that need READ_MQ=1.
+
+DigitalExpression 
+I=$mm_out_dir/multimap_altered_clean_star_gene_exon_tagged.bam 
+O=$mm_out_dir/multimap_altered_out_gene_exon_tagged.dge.txt.gz 
+SUMMARY=$mm_out_dir/multimap_altered_out_gene_exon_tagged.dge.summary.txt 
+READ_MQ=1 
+
+C.	BamTag Histogram for Digital Gene Expression including multimapping alignments meeting inclusion criteria
+
+BAMTagHistogram 
+I=$mm_out_dir/multimap_altered_clean_star_gene_exon_tagged.bam 
+O=$mm_out_dir/multimap_altered_out_cell_readcounts.txt.gz 
+TAG=XC 
+READ_QUALITY=1 
+
+Alteration metrics  
+The extended pipeline outputs metrics on the multimapping alignments meeting inclusion requirements. An XR tag is added to each primary-flagged alignment in a set, either included multimapping alignment describing its type:
+
+XR:Z:Dual/Triple/Quad_No.max.AS.scores_No.CODING.max.AS.scores_is.GE.same
+
+XR and GE tags for included multimappers are gathered in the following metrics files:
+
+XRtags_totals.txt - Frequencies of all multimappers over all genes.
+GEtags_XRtotals.txt - Frequencies of all multimappers for each gene.
+GEtags_XRfrequencies.txt - Frequencies of each type of multimapper (each XR tag type) for each gene.
+
+### Workflow for comparing multimapping alignment sets - MultimapperAlteration.sh:
