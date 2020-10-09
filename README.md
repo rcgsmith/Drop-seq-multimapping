@@ -63,20 +63,20 @@ XF tag determines whether an alignment is Coding or Non-coding:
 If any of the XF read tags for a set of alignments is CODING/UTR but without a GE tag, then that set of mappers (dual, triple, quadruple) is not considered (all alignments set to ‘secondary’)
        Indicates alignment to be altered, (if condition is met).
        
-Dual mappers:
+#### Dual mappers:
 
 <img src="/Images/Dual_Mappers_Image.png" width="70%">
 
-Triple mappers
+#### Triple mappers
 
 <img src="/Images/Triple_Mappers_Image.png" width="75%">
 
-Quadruple mappers
+#### Quadruple mappers
 
 <img src="/Images/Quad_Mappers_Image.png" width="80%">
 
 
-### Implementation
+## Implementation
 This set of scripts is designed to be incorporated into the user’s current Drop-seq pipeline (v1) setup. Extended pipeline output includes all standard Drop-seq output as well as equivalent files with inclusion of specific multimapping alignments as outlined above. 
 
 The following description makes use of the same file descriptions and nomenclature as in Drop-seq computational protocol v1.2 (http://mccarrolllab.org/wp-content/uploads/2016/03/Drop-seqAlignmentCookbookv1.2Jan2016.pdf), and the Drop-seq tools v1.13. Both available at https://github.com/broadinstitute/Drop-seq/releases/tag/v1.13.
@@ -98,7 +98,7 @@ multifolder=own/path/to/MultimapperScripts
 5)	Make a copy of own implementation of Drop-seq_alignment.sh, rename it as Drop-seq_alignment_incMultimappers.sh and place in own/path/to/MultimapperScripts.
 6)	In Drop-seq_alignment_incMultimappers.sh, change the merge_bam command so that multimapping alignments are included downstream (ie change to INCLUDE_SECONDARY_ALIGNMENTS=true)
 
-# Stage 4: merge and tag aligned reads
+### Stage 4: merge and tag aligned reads
 merge_bam="java -Xmx4000m -jar ${picard_jar} MergeBamAlignment REFERENCE_SEQUENCE=${reference} UNMAPPED_BAM=${tagged_unmapped_bam} \
 ALIGNED_BAM=${aligned_sorted_bam} INCLUDE_SECONDARY_ALIGNMENTS=true PAIRED_RUN=true"
 tag_with_gene_exon="${dropseq_root}/TagReadWithGeneExon O=${tmpdir}/star_gene_exon_tagged.bam ANNOTATIONS_FILE=${refflat} TAG=GE"
