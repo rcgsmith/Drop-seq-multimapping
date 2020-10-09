@@ -69,11 +69,11 @@ Dual mappers:
 
 Triple mappers
 
-<img src="/Images/Triple_Mappers_Image.png" width="80%">
+<img src="/Images/Triple_Mappers_Image.png" width="75%">
 
 Quadruple mappers
 
-<img src="/Images/Quad_Mappers_Image.png" width="100%">
+<img src="/Images/Quad_Mappers_Image.png" width="80%">
 
 
 ### Implementation
