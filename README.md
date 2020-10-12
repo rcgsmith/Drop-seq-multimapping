@@ -88,50 +88,50 @@ The comparison of multimapping alignment sets requires the samtools package (htt
 
 In User’s own Drop-seq pipeline:
 
-1)	Create `<mm_out_dir>` variable for Drop-seq pipeline output path. This mm_out_dir variable is required by the extended pipeline, even if path is already specified by another variable.
+1)	Create `mm_out_dir` variable for Drop-seq pipeline output path. This `mm_out_dir` variable is required by the extended pipeline, even if path is already specified by another variable.
 
-```
+```bash
 mm_out_dir=own/output/path
 ```
 
-2)	Create temporary directory in own/output/path:
+2)	Create temporary directory in `own/output/path`. This folder must be called `temp`:
 
-```
+```bash
 mkdir $mm_out_dir/temp
 ```
 
-3)	Copy MultimapperScripts folder available here to a pipeline-accessible folder at `<own/path/to/MultimapperScripts>`
+3)	Copy MultimapperScripts folder available here to a pipeline-accessible folder at `own/path/to/MultimapperScripts`
 4)	Create variable for MultimapperScripts path:
 ```
 multifolder=own/path/to/MultimapperScripts
 ```
 
-5)	Make a copy of own (non-extended) implementation of `<Drop-seq_alignment.sh>`, rename it as `<Drop-seq_alignment_incMultimappers.sh>` and place in `<own/path/to/MultimapperScripts>`.
+5)	Make a copy of own (non-extended) implementation of `Drop-seq_alignment.sh`, rename it as `Drop-seq_alignment_incMultimappers.sh` and place in `own/path/to/MultimapperScripts`.
 
-6)	In `<Drop-seq_alignment_incMultimappers.sh>`, change the `<merge_bam>` command so that multimapping alignments are included downstream (ie change to INCLUDE_SECONDARY_ALIGNMENTS=true):
+6)	In `Drop-seq_alignment_incMultimappers.sh`, change the `merge_bam` command so that multimapping alignments are included downstream (ie change to INCLUDE_SECONDARY_ALIGNMENTS=true):
 
-```
+```bash
 merge_bam="java -Xmx4000m -jar ${picard_jar} MergeBamAlignment REFERENCE_SEQUENCE=${reference} UNMAPPED_BAM=${tagged_unmapped_bam} \
 ALIGNED_BAM=${aligned_sorted_bam} INCLUDE_SECONDARY_ALIGNMENTS=true PAIRED_RUN=true"
 tag_with_gene_exon="${dropseq_root}/TagReadWithGeneExon O=${tmpdir}/star_gene_exon_tagged.bam ANNOTATIONS_FILE=${refflat} TAG=GE"
 ```
 
-7)	Where `<Drop-seq_alignment.sh>` is invoked, instead invoke `<$multifolder/Drop-seq_alignment_incMultimappers.sh>` (with same options as for Drop-seq_alignment.sh).
+7)	Where `Drop-seq_alignment.sh` is invoked, instead invoke `$multifolder/Drop-seq_alignment_incMultimappers.sh` (with same options as for non-extended Drop-seq_alignment.sh).
 
-8)	Extend standard pipeline with three new sections at the end:
+8)	Extend standard pipeline by adding in these three new sections at the end:
 
  A.	Compare Multimapping Alignment Sets 
 
-```
+```bash
 alteration_input=$mm_out_dir/clean_star_gene_exon_tagged.bam
 outputfile=$mm_out_dir/multimap_altered_clean_star_gene_exon_tagged.bam
 
 source $multifolder/MultimapperAlteration.sh 
 ```
 
- B.	Digital Gene Expression including multimapping alignments meeting inclusion criteria  - use same parameters as for standard pipeline DGE except that need `<READ_MQ=1>`.
+ B.	Digital Gene Expression including multimapping alignments meeting inclusion criteria  - use same parameters as for standard pipeline DGE except that need `READ_MQ=1`.
 
-```
+```bash
 DigitalExpression 
 I=$mm_out_dir/multimap_altered_clean_star_gene_exon_tagged.bam 
 O=$mm_out_dir/multimap_altered_out_gene_exon_tagged.dge.txt.gz 
@@ -141,7 +141,7 @@ READ_MQ=1
 
 C.	BamTag Histogram for Digital Gene Expression including multimapping alignments meeting inclusion criteria
 
-```
+```bash
 BAMTagHistogram 
 I=$mm_out_dir/multimap_altered_clean_star_gene_exon_tagged.bam 
 O=$mm_out_dir/multimap_altered_out_cell_readcounts.txt.gz 
