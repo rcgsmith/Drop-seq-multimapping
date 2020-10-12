@@ -151,16 +151,25 @@ READ_QUALITY=1
 ```
 
 ## Alteration metrics  
-The extended pipeline outputs metrics on the multimapping alignments meeting inclusion requirements. An XR tag is added to each primary-flagged alignment in a set, either included multimapping alignment describing its type:
+The extended pipeline outputs metrics on the multimapping alignments meeting inclusion requirements. An XR tag is added to the primary-flagged alignment in the set, and the tag describes the basis of alteration:
 
-XR:Z:Dual/Triple/Quad_No.max.AS.scores_No.CODING.max.AS.scores_is.GE.same
+XR:Z:Dual/Triple/Quad_Num.max.AS.scores_Num.CODING.max.AS.scores_is.GE.same
+
+**Examples**:
+Dual_1max_ONLYmaxCODING
+
+Triple_2max_oneCODING
+
+Quad_2max_oneormoreCODING_GEsame
 
 XR and GE tags for included multimappers are gathered in the following metrics files:
 
 XRtags_totals.txt - Frequencies of all multimappers over all genes.
+
 GEtags_XRtotals.txt - Frequencies of all multimappers for each gene.
+
 GEtags_XRfrequencies.txt - Frequencies of each type of multimapper (each XR tag type) for each gene.
 
 ## Workflow for comparing multimapping alignment sets:
 
-<img src="/Images/Altered_Pipeline_Image.png" width="75%">
+<img src="/Images/Altered_Pipeline_Image.png" width="80%">
