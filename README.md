@@ -1,6 +1,6 @@
 # Extension to Drop-seq bioinformatics pipeline (v1) to allow multimapping alignments in specific circumstances.
 
-This set of scripts provides an extension to the Drop-seq bioinformatics pipeline v1 (http://mccarrolllab.org/dropseq/, https://github.com/broadinstitute/Drop-seq).
+This set of scripts provides an extension to the Drop-seq bioinformatics pipeline v1 (http://mccarrolllab.org/dropseq/, https://github.com/broadinstitute/Drop-seq, 'Highly Parallel Genome-wide Expression Profiling of Individual Cells Using Nanoliter Droplets', Macosko et al. Vol 161, Issue 5, 21 May 2015, p.1202-1214, https://doi.org/10.1016/j.cell.2015.05.002).
 
 The extension allows exonic or UTR-aligned multimapping alignments with specific characteristics (detailed here) to be included in the input for creation of the digital gene expression matrix.
 
@@ -11,7 +11,7 @@ Please read the following notes on the intended use and background of this alter
 
 ## Background
 
-The standard Drop-seq (v1) pipeline uses the alignment output of the Star aligner (aligning reads to the genome). The Star aligner can output several possible alignment outputs for a single read (if they exist) and indicates the number of alignments for the read in the MAPQ column of the sam/bam alignment file. The possible Star MAPQ values are: 
+The standard Drop-seq (v1) pipeline uses the alignment output of the STAR aligner which aligns reads to the genome (STAR: ultrafast universal RNA-seq aligner, Bioinformatics, Vol 29, Issue 1, Jan 2013, Pages 15–21 https://doi.org/10.1093/bioinformatics/bts635). The STAR aligner can output several possible alignment outputs for a single read (if they exist) and indicates the number of alignments for the read in the MAPQ column of the sam/bam alignment file. The possible STAR MAPQ values are: 
 
 *	255 -  one mapping location.
 *	3 – two mapping locations.
@@ -101,14 +101,15 @@ mkdir $mm_out_dir/temp
 ```
 
 3)	Copy MultimapperScripts folder available here to a pipeline-accessible folder at `own/path/to/MultimapperScripts`
-4)	Create variable for MultimapperScripts path:
+
+4)	Make a copy of own (non-extended) implementation of `Drop-seq_alignment.sh`, rename it as `Drop-seq_alignment_incMultimappers.sh` and place in `own/path/to/MultimapperScripts`.
+
+5)	Create `multifolder` variable for MultimapperScripts path:
 ```
 multifolder=own/path/to/MultimapperScripts
 ```
 
-5)	Make a copy of own (non-extended) implementation of `Drop-seq_alignment.sh`, rename it as `Drop-seq_alignment_incMultimappers.sh` and place in `own/path/to/MultimapperScripts`.
-
-6)	In `Drop-seq_alignment_incMultimappers.sh`, change the `merge_bam` command so that multimapping alignments are included downstream (ie change to INCLUDE_SECONDARY_ALIGNMENTS=true):
+6)	In `Drop-seq_alignment_incMultimappers.sh`, change the `merge_bam` command so that multimapping alignments are included downstream (ie change to INCLUDE_SECONDARY_ALIGNMENTS from false to true):
 
 ```bash
 merge_bam="java -Xmx4000m -jar ${picard_jar} MergeBamAlignment REFERENCE_SEQUENCE=${reference} UNMAPPED_BAM=${tagged_unmapped_bam} \
@@ -161,3 +162,5 @@ GEtags_XRtotals.txt - Frequencies of all multimappers for each gene.
 GEtags_XRfrequencies.txt - Frequencies of each type of multimapper (each XR tag type) for each gene.
 
 ## Workflow for comparing multimapping alignment sets - MultimapperAlteration.sh:
+
+<img src="/Images/Altered_Pipeline_Image.png" width="70%">
