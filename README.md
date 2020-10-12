@@ -4,6 +4,15 @@ This set of scripts provides an extension to the Drop-seq bioinformatics pipelin
 
 The extension allows exonic or UTR-aligned multimapping alignments with specific characteristics (detailed here) to be included in the input for creation of the digital gene expression matrix.
 
+## Sections
+
+* Getting Started
+* Background
+* Implementation
+* Alteration Metrics
+* Workflow for comparing multimapping alignment sets
+* Testing
+
 
 ## Getting Started
 
@@ -171,3 +180,12 @@ XR and GE tags for included multimappers are gathered in the following metrics f
 ## Workflow for comparing multimapping alignment sets:
 
 <img src="/Images/Altered_Pipeline_Image.png" width="75%">
+
+## Testing
+
+To test implementation above, a test set of 10000 reads from mouse cells can be found in `Testing` folder:
+
+* Read 1:
+* Read 2:
+
+The extended pipeline output is found in `Testing/Testing_Output` for alignment against the mm10 genome (meta data from Macosko et al, GSE63472 https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE63472) and STAR v
