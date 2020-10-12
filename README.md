@@ -65,7 +65,7 @@ If any of the XF read tags for a set of alignments is CODING/UTR but without a G
        
 #### Dual mappers:
 
-<img src="/Images/Dual_Mappers_Image.png" width="70%">
+<img src="/Images/Dual_Mappers_Image.png" width="65%">
 
 #### Triple mappers
 
@@ -121,7 +121,7 @@ tag_with_gene_exon="${dropseq_root}/TagReadWithGeneExon O=${tmpdir}/star_gene_ex
 
 8)	Extend standard pipeline by adding in these three new sections at the end:
 
- A.	Compare Multimapping Alignment Sets 
+ * Compare Multimapping Alignment Sets 
 
 ```bash
 alteration_input=$mm_out_dir/clean_star_gene_exon_tagged.bam
@@ -130,7 +130,7 @@ outputfile=$mm_out_dir/multimap_altered_clean_star_gene_exon_tagged.bam
 source $multifolder/MultimapperAlteration.sh 
 ```
 
- B.	Digital Gene Expression including multimapping alignments meeting inclusion criteria  - use same parameters as for standard pipeline DGE except that need `READ_MQ=1`.
+ * Digital Gene Expression including multimapping alignments meeting inclusion criteria  - use same parameters as for standard pipeline DGE except that need `READ_MQ=1`.
 
 ```bash
 DigitalExpression 
@@ -140,7 +140,7 @@ SUMMARY=$mm_out_dir/multimap_altered_out_gene_exon_tagged.dge.summary.txt
 READ_MQ=1 
 ```
 
-C.	BamTag Histogram for Digital Gene Expression including multimapping alignments meeting inclusion criteria
+ * BamTag Histogram for Digital Gene Expression including multimapping alignments meeting inclusion criteria
 
 ```bash
 BAMTagHistogram 
@@ -161,6 +161,6 @@ XRtags_totals.txt - Frequencies of all multimappers over all genes.
 GEtags_XRtotals.txt - Frequencies of all multimappers for each gene.
 GEtags_XRfrequencies.txt - Frequencies of each type of multimapper (each XR tag type) for each gene.
 
-## Workflow for comparing multimapping alignment sets - MultimapperAlteration.sh:
+## Workflow for comparing multimapping alignment sets:
 
-<img src="/Images/Altered_Pipeline_Image.png" width="70%">
+<img src="/Images/Altered_Pipeline_Image.png" width="75%">
