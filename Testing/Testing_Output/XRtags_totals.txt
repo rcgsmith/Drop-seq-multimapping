@@ -1,0 +1,12 @@
+     95 Dual_1max_ONLYmaxCODING
+      4 Dual_1max_twoCODING_GEsame
+    662 Dual_NOmax_oneCODING
+      1 Dual_NOmax_twoCODING_GEsame
+     20 Quad_1max_ONLYmaxCODING
+      2 Quad_2max_oneormoreCODING_GEsame
+     11 Quad_3max_onemaxCODING
+      1 Quad_NOmax_fourCODING_GEsame
+    112 Quad_NOmax_oneCODING
+     48 Triple_1max_ONLYmaxCODING
+     21 Triple_2max_oneCODING
+    261 Triple_NOmax_oneCODING
