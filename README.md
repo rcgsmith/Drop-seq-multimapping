@@ -188,4 +188,4 @@ To test implementation above, a test set of 10000 reads from mouse cells can be 
 * Read 1:
 * Read 2:
 
-The extended pipeline output is found in `Testing/Testing_Output` for alignment against the mm10 genome (meta data from Macosko et al, GSE63472 https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE63472) and STAR v
+The extended pipeline output is found in `Testing/Testing_Output` for alignment against the mm10 genome using STAR v2.5.2b. The mm10 genome index was built using meta data from Macosko et al, GSE63472 https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE63472.
