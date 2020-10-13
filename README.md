@@ -88,7 +88,7 @@ If any of the XF read tags for a set of alignments is CODING/UTR but without a G
 ## Implementation
 This set of scripts is designed to be incorporated into the user’s current Drop-seq pipeline (v1) setup. Extended pipeline output includes all standard Drop-seq output as well as equivalent files with inclusion of specific multimapping alignments as outlined above. 
 
-The following description makes use of the same file descriptions and nomenclature as in Drop-seq computational protocol v1.2 (http://mccarrolllab.org/wp-content/uploads/2016/03/Drop-seqAlignmentCookbookv1.2Jan2016.pdf), and the Drop-seq tools v1.13. Both available at https://github.com/broadinstitute/Drop-seq/releases/tag/v1.13.
+The following description makes use of the same file descriptions and nomenclature as in Drop-seq computational protocol v1.2 (http://mccarrolllab.org/wp-content/uploads/2016/03/Drop-seqAlignmentCookbookv1.2Jan2016.pdf), and the Drop-seq tools v1.12. Both available from links at https://github.com/broadinstitute/Drop-seq/releases/tag/v1.13.
 
 The comparison of multimapping alignment sets requires the samtools package (http://www.htslib.org/) and bash and awk implementations. It has been tested on systems implementing:
 *	samtools v1.3.2,  
@@ -191,6 +191,6 @@ To test implementation above, a test set of 10000 read pairs from mouse cells ca
 
 * Read 2: `Test10000_R2.fastq`
 
-The extended pipeline output for these reads is found in `Testing/Testing_Output` for alignment against the mm10 genome using STAR v2.5.2b. The mm10 genome index was built using meta data from Macosko et al, GSE63472 https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE63472.
+The extended pipeline output for these reads is found in `Testing/Testing_Output` for alignment against the mm10 genome using STAR v2.5.2b. The mm10 genome index was built using meta data from Macosko et al, GSE63472 https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE63472. Default parameters were used for both Dropseq-tools v1.12 and STAR v2.252b. `NUM_CORE_BARCODES=1000` for unaltered and altered calls to DigitalExpression function.
 
 The user can check their extended pipeline against these output files (make sure to use mm10 genome and STAR version indicated above).
