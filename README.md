@@ -174,7 +174,9 @@ XR:Z:Quad_2max_oneormoreCODING_GEsame
 XR and GE tags for included multimappers are gathered in the following metrics files:
 
 * XRtags_totals.txt - Frequencies of all multimappers over all genes.
+
 * GEtags_XRtotals.txt - Frequencies of all multimappers for each gene.
+
 * GEtags_XRfrequencies.txt - Frequencies of each type of multimapper (each XR tag type) for each gene.
 
 ## Workflow for comparing multimapping alignment sets:
@@ -183,9 +185,12 @@ XR and GE tags for included multimappers are gathered in the following metrics f
 
 ## Testing
 
-To test implementation above, a test set of 10000 reads from mouse cells can be found in `Testing` folder:
+To test implementation above, a test set of 10000 read pairs from mouse cells can be found in `Testing` folder:
 
-* Read 1:
-* Read 2:
+* Read 1: `Test10000_R1.fastq`
 
-The extended pipeline output is found in `Testing/Testing_Output` for alignment against the mm10 genome using STAR v2.5.2b. The mm10 genome index was built using meta data from Macosko et al, GSE63472 https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE63472.
+* Read 2: `Test10000_R2.fastq`
+
+The extended pipeline output for these reads is found in `Testing/Testing_Output` for alignment against the mm10 genome using STAR v2.5.2b. The mm10 genome index was built using meta data from Macosko et al, GSE63472 https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE63472.
+
+The user can check their extended pipeline against these output files (make sure to use mm10 genome and STAR version indicated above).
