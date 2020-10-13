@@ -191,6 +191,6 @@ To test implementation above, a test set of 10000 read pairs from mouse cells ca
 
 * Read 2: `Test10000_R2.fastq`
 
-The extended pipeline output for these reads is found in `Testing/Testing_Output` for alignment against the mm10 genome using STAR v2.5.2b. The mm10 genome index was built using meta data from Macosko et al, GSE63472 https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE63472. Default parameters were used for both Dropseq-tools v1.12 and STAR v2.5.2b. `NUM_CORE_BARCODES=1000` for unaltered and altered calls to DigitalExpression function.
+The extended pipeline output for these reads is found in `Testing/Testing_Output` for alignment against the mm10 genome using STAR v2.5.2b. The mm10 genome index was built using meta data from Macosko et al, GSE63472 https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE63472. Default parameters were used for both Dropseq-tools v1.12 and STAR v2.5.2b. `NUM_CORE_BARCODES=1000` for standard pipeline and extended pipeline calls to DigitalExpression function.
 
 The user can check their extended pipeline against these output files (make sure to use mm10 genome and STAR version indicated above).
