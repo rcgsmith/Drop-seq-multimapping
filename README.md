@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/232884816.svg)](https://zenodo.org/badge/latestdoi/232884816)
+
 # Extension to Drop-seq bioinformatics pipeline (v1) to allow multimapping alignments in specific circumstances.
 
 This set of scripts provides an extension to the Drop-seq bioinformatics pipeline v1 (http://mccarrolllab.org/dropseq/, https://github.com/broadinstitute/Drop-seq, 'Highly Parallel Genome-wide Expression Profiling of Individual Cells Using Nanoliter Droplets', Macosko et al. Vol 161, Issue 5, 21 May 2015, p.1202-1214, https://doi.org/10.1016/j.cell.2015.05.002).
